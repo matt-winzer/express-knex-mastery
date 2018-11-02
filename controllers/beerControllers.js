@@ -7,22 +7,47 @@ const getAll = (req, res, next) => {
         .then(beers => res.json({beers: beers}))
 }
 const getOne = (req, res, next) => {
-    return 
+    let id = req.params.id
+    return knex('beer')
+        .where('id', id)
+        .then(beer => { res.json({ beer: beer[0]}) })
 }
-const postBeer = (req, res, next) => {
-    return 
+const postBeers = (req, res, next) => {
+    let body = req.body
+    return knex('beer')
+        .insert(body)
+        .returning('*')
+        .then(beer => {
+            res.json({beer: beer[0]})
+        })
 }
-const putBeer = (req, res, next) => {
-    return 
+const putBeers = (req, res, next) => {
+    let body = req.body
+    let id = req.params.id
+
+    return knex('beer')
+        .where('id', id)
+        .update(body)
+        .returning('*')
+        .then(beer => {
+            res.json({ beer: beer[0] })
+        })
 }
-const deleteBeer = (req, res, next) => {
-    return 
+const deleteBeers = (req, res, next) => {
+    let id = req.params.id
+    return knex('beer')
+        .where('id', id)
+        .delete()
+        .returning('*')
+        .then(beer => {
+            res.json({ deletedBeer: beer[0] })
+        })
 }
 
 module.exports = {
     getAll,
     getOne,
-    postBeer,
-    putBeer,
-    deleteBeer
+    postBeers,
+    putBeers,
+    deleteBeers
 }
