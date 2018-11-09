@@ -13,12 +13,16 @@ app.use(cors())
 app.get('/', (req, res) => {
   process.env.NODE_ENV !== 'production' ?
   res.json({
-    beers: `http://localhost:${port}/beers`,
-    students: `http://localhost:${port}/students`
+    beers: `https://localhost:${port}/beers`,
+    students: `https://localhost:${port}/students`,
+    GitHubRepo: `https://github.com/billbaincodes/express-knex-mastery`,
+    FrontEnd: `https://warm-garden-50264.herokuapp.com/`
   }) :
   res.json({
-    beers: `deployed link`,
-    students: `deployed link`
+    beers: `https://cryptic-depths-21692.herokuapp.com/beers`,
+    students: `https://cryptic-depths-21692.herokuapp.com/student`,
+    FrontEnd: `https://warm-garden-50264.herokuapp.com/`,
+    GitHubRepo: `https://github.com/billbaincodes/express-knex-mastery`,
   })
 })
 
